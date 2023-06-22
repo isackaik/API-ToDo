@@ -6,7 +6,9 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -44,7 +46,8 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date dt_Nascimento;
 
-    //private List<Task> tasks = new ArrayList<Task>();
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<Task>();
 
 
     public User(){
@@ -97,6 +100,14 @@ public class User {
 
     public void setDt_Nascimento(Date dt_Nascimento) {
         this.dt_Nascimento = dt_Nascimento;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
