@@ -1,11 +1,13 @@
 package com.projetos.apitodo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,12 +41,11 @@ public class User {
     @NotBlank(groups = {CreateUser.class, UpdateUser.class})
     @Size(groups = {CreateUser.class, UpdateUser.class})
     @CPF(groups = {CreateUser.class, UpdateUser.class}, message = "CPF inválido")
-    private Integer cpf;
+    private String cpf;
 
     @Column(name = "dt_nascimento", nullable = false)
-    @NotBlank (groups = {CreateUser.class, UpdateUser.class})
     @Temporal(TemporalType.DATE)
-    private Date dt_Nascimento;
+    private Date dt_nascimento;
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks = new ArrayList<Task>();
@@ -54,12 +55,12 @@ public class User {
 
     }
 
-    public User(Long id, String username, String password, Integer cpf, Date dt_Nascimento) {
+    public User(Long id, String username, String password, String cpf, Date dt_nascimento) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.cpf = cpf;
-        this.dt_Nascimento = dt_Nascimento;
+        this.dt_nascimento = dt_nascimento;
     }
 
     public Long getId() {
@@ -86,22 +87,23 @@ public class User {
         this.password = password;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Date getDt_Nascimento() {
-        return dt_Nascimento;
+    public Date getDt_nascimento() {
+        return dt_nascimento;
     }
 
-    public void setDt_Nascimento(Date dt_Nascimento) {
-        this.dt_Nascimento = dt_Nascimento;
+    public void setDt_nascimento(Date dt_nascimento) {
+        this.dt_nascimento = dt_nascimento;
     }
 
+    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
@@ -115,12 +117,14 @@ public class User {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         User user = (User) obj;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(cpf, user.cpf) && Objects.equals(dt_Nascimento, user.dt_Nascimento);
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username)
+                && Objects.equals(password, user.password) && Objects.equals(cpf, user.cpf)
+                && Objects.equals(dt_nascimento, user.dt_nascimento);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, cpf, dt_Nascimento);
+        return Objects.hash(id, username, password, cpf, dt_nascimento);
     }
 
     @Override
