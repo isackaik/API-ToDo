@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    List<Task>  findByUser_Id(Long id);
+    List<Task>  findByUserId(Long id);
 
     /* JPQL
     @Query(value = "SELECT t from Task t where t.user.id = :user_id")
