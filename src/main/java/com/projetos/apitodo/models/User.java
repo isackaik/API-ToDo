@@ -37,7 +37,7 @@ public class User {
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
 
-    @Column(name = "cpf", length = 14, nullable = false)
+    @Column(name = "cpf", length = 14, nullable = false, unique = true)
     @NotBlank(groups = {CreateUser.class, UpdateUser.class})
     @Size(groups = {CreateUser.class, UpdateUser.class})
     @CPF(groups = {CreateUser.class, UpdateUser.class}, message = "CPF inválido")

@@ -38,6 +38,7 @@ public class UserService {
 
         User newUser = findById(user.getId());
         newUser.setPassword(user.getPassword());
+        newUser.setDt_nascimento(user.getDt_nascimento());
         return this.userRepository.save(newUser);
 
     }

@@ -2,6 +2,7 @@ package com.projetos.apitodo.controllers;
 
 import com.projetos.apitodo.models.Task;
 import com.projetos.apitodo.services.TaskService;
+import com.projetos.apitodo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +20,8 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable Long id){
@@ -28,9 +31,10 @@ public class TaskController {
 
     }
 
-    @GetMapping("/user/{userid}")
+    @GetMapping("/user/{user_id}")
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long user_id){
 
+        this.userService.findById(user_id);
         List<Task> tasks = this.taskService.findAllByUserId(user_id);
         return ResponseEntity.ok().body(tasks);
 
@@ -48,7 +52,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@Valid @RequestBody Task task, Long id){
+    public ResponseEntity<Void> update(@Valid @RequestBody Task task, @PathVariable Long id){
 
         task.setId(id);
         this.taskService.update(task);
