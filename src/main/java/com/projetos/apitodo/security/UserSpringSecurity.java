@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
-public class UserSpringSegurity implements UserDetails {
+public class UserSpringSecurity implements UserDetails {
 
 
     private Long id;
@@ -21,7 +21,7 @@ public class UserSpringSegurity implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSpringSegurity(Long id, String username, String password, Set<ProfileEnum> profileEnums) {
+    public UserSpringSecurity(Long id, String username, String password, Set<ProfileEnum> profileEnums) {
         this.id = id;
         this.username = username;
         this.password = password;

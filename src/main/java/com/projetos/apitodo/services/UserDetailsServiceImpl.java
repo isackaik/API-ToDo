@@ -2,7 +2,7 @@ package com.projetos.apitodo.services;
 
 import com.projetos.apitodo.models.User;
 import com.projetos.apitodo.repositories.UserRepository;
-import com.projetos.apitodo.security.UserSpringSegurity;
+import com.projetos.apitodo.security.UserSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Usuário não encontrado: " + username);
 
 
-        return new UserSpringSegurity(user.getId(), user.getUsername(), user.getPassword(), user.getProfiles());
+        return new UserSpringSecurity(user.getId(), user.getUsername(), user.getPassword(), user.getProfiles());
     }
 }

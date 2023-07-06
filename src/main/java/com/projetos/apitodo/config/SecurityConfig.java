@@ -1,5 +1,6 @@
 package com.projetos.apitodo.config;
 
+import com.projetos.apitodo.security.JWTAuthenticationFilter;
 import com.projetos.apitodo.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +57,10 @@ public class SecurityConfig {
 
         http.authorizeRequests().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
                 .permitAll().antMatchers(PUBLIC_MATCHERS).permitAll()
-                        .anyRequest().authenticated();
+                        .anyRequest().authenticated().and()
+                        .authenticationManager(authenticationManager);
+
+        http.addFilter(new JWTAuthenticationFilter(this.authenticationManager, this.jwtUtil));
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

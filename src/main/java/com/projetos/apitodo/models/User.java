@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class User {
 
     public interface CreateUser{}
