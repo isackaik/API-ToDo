@@ -3,8 +3,6 @@ package com.projetos.apitodo.services;
 import com.projetos.apitodo.models.Task;
 import com.projetos.apitodo.models.User;
 import com.projetos.apitodo.repositories.TaskRepository;
-import com.projetos.apitodo.services.exceptions.DataBindingViolationException;
-import com.projetos.apitodo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +21,7 @@ public class TaskService {
     public Task findById(Long id){
 
         Optional<Task> task = taskRepository.findById(id);
-        return task.orElseThrow(() -> new ObjectNotFoundException(
+        return task.orElseThrow(() -> new RuntimeException(
                 "Tarefa não encontrada. ID: " +id+ ", Tipo: " + Task.class.getName()
         ));
 
@@ -64,7 +62,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);
         } catch (Exception e){
-            throw new DataBindingViolationException("Tarefa vinculada a outras entidades. Não foi possível excluir!");
+            throw new RuntimeException("Tarefa vinculada a outras entidades. Não foi possível excluir!");
         }
     }
 

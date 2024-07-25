@@ -1,7 +1,6 @@
 package com.projetos.apitodo.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.projetos.apitodo.models.enums.ProfileEnum;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -9,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = User.TABLE_NAME)
